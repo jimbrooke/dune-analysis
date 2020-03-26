@@ -25,8 +25,8 @@ class ClusterVars():
         # only select events with at least two hits in the mask
         has_two_hits = Hit_Start_Tick[mask].counts > 1
 
-        # default output is zero
-        out = np.zeros(len(chunk.tree))
+        # default output is np.inf
+        out = np.full(len(chunk.tree), np.inf)
 
         # calculate max-min
         start_max = hit_start[has_two_hits].max()
