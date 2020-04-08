@@ -1,15 +1,24 @@
 stages:
   - BasicVars: fast_carpenter.Define
   - ClusterVars: my-analysis.ClusterVars
-  - clusters: fast_carpenter.BinnedDataframe
+  - Clusters: my-analysis.ClusterFinder
+  - clusDStart: fast_carpenter.BinnedDataframe
+  - clusNHits: fast_carpenter.BinnedDataframe
 
 BasicVars:
   variables:
-    - isMarley: (Hit_True_GenType == 1)
+    - isMarley: (Hit_True_GenType == 1) & (Hit_True_MarleyIndex==0)
 
 
 ClusterVars: {mask: isMarley}
 
-clusters:
+Clusters: { mask: isMarley,  out_var: clusterNHits }
+
+clusDStart:
     binning:
-        - {in: DeltaStart, out: deltaStart}
+        - {in: DeltaStart, out: clusDStart}
+
+clusNHits:
+    binning:
+        - {in: clusterNHits, out: clusNHits}
+
